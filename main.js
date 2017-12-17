@@ -1,13 +1,3 @@
-/*
-
-is_depend_cycles takes in a parameter c which is an Array of Maps .
-
-Each map in c should have three elements, head (maps to an integer), id (maps to an integer), form (maps to a string).
-
-
-tree is a dictionary of dictionaries.
-*/
-
 function is_depend_cycles(tree) {
   var g = new Map();
   var vertices;
