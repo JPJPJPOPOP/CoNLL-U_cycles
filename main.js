@@ -73,7 +73,7 @@ function is_depend_cycles(c) {
         var c_data = c_datas[i];
         if(c_data.length > 0) {
           c_data = normalize_cycle(c_data);
-          if(cycles.indexOf(c_data) !== -1) {
+          if(cycles.indexOf(c_data) === -1) {
             cycles.push(c_data);
           }
         }
