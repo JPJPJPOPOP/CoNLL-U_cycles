@@ -13,7 +13,7 @@ function parse(text) {
       words.push(word);
     }
   };
-  reader.readAsText(file);
+  reader.readAsText(text);
   return words;
 };
 
