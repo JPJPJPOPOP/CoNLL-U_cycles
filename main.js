@@ -18,8 +18,8 @@ function is_depend_cycles(tree) {
   for (var k in data) {
     if (data.hasOwnProperty(k)) {           
       var word = data[k];
-      add_edge(word["id"], word["head"]);
-      id_to_word.set(word["id"], word["form"]);
+      add_edge(parseId(word["id"]), word["head"]);
+      id_to_word.set(parseId(word["id"]), word["form"]);
     }
   }
 
@@ -119,7 +119,7 @@ function is_depend_cycles(tree) {
 
   function parseId(id) {
     var nfid = id.substr(2);
-    return int(nfid);
+    return parseInt(nfid);
   }
 
   function is_cyclic() {
