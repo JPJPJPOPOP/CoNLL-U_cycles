@@ -77,7 +77,14 @@ function is_depend_cycles(c) {
         var c_data = c_datas[i];
         if(c_data.length > 0) {
           c_data = normalize_cycle(c_data);
-          if(cycles.indexOf(c_data) === -1) {
+          var checkEqual = 0;
+          for(var j = 0; j < cycles.length; j++) {
+            if(checkIfEqual(cycles[j],c_data) === true) {
+              checkEqual = 1;
+              break;
+            }
+          }
+          if(checkEqual === 0) {
             cycles.push(c_data);
           }
         }
@@ -85,6 +92,18 @@ function is_depend_cycles(c) {
     }
     return cycles;
   };
+
+  function checkIfEqual(a,b) {
+    if(a.length !== b.length) {
+      return false;
+    }
+    for(var i = 0; i < a.length; i++) {
+      if(a[i] !== b[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   function is_cyclic() {
     return cycle_list().length > 0;
