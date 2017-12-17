@@ -5,7 +5,7 @@ function is_depend_cycles(c) {
   vertices = data.length + 1;
   var id_to_word = new Map();
 
-  for(var i = 0; i < vertices; i++) {
+  for(var i = 0; i < vertices-1; i++) {
     var word = data[i];
     add_edge(word.get("id"), word.get("head"));
     id_to_word.set(word.get("id"), word.get("head"));
