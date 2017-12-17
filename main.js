@@ -24,8 +24,8 @@ function is_depend_cycles(tree) {
   }
 
   console.log("Has Cycles:");
-  console.log(is_cyclic());
-  if (is_cyclic()) {
+  console.log(_is_cyclic());
+  if (_is_cyclic()) {
     console.log("Cycle List:");
     var c_list = cycle_list();
     for (var i = 0; i < c_list.length; i++) {
@@ -42,7 +42,7 @@ function is_depend_cycles(tree) {
       console.log(output);
     }
   }
-  return is_cyclic();
+  return _is_cyclic();
   function add_edge(u,v) {
     if (g.get(u) === undefined) {
       g.set(u,[v]);
@@ -122,7 +122,7 @@ function is_depend_cycles(tree) {
     return parseInt(nfid);
   }
 
-  function is_cyclic() {
+  function _is_cyclic() {
     return cycle_list().length > 0;
   };
 };
