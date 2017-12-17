@@ -41,11 +41,11 @@ function is_depend_cycles(c) {
   function _is_cyclic_util(start_vertex) {
     var current_vertex = start_vertex;
     var visited = [current_vertex];
-    while(g.get(current_vertex).length > 0 && g.get(current_vertex)[0] !== start_vertex) {
+    while(g.get(current_vertex) !== undefined && g.get(current_vertex).length > 0 && g.get(current_vertex)[0] !== start_vertex) {
       current_vertex = g.get(current_vertex)[0];
       visited.push(current_vertex);
     }
-    if(g.get(current_vertex).length > 0) {
+    if(g.get(current_vertex) !== undefined && g.get(current_vertex).length > 0) {
       return [visited];
     }
     return [];
