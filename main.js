@@ -8,7 +8,7 @@ function is_depend_cycles(c) {
   for(var i = 0; i < vertices-1; i++) {
     var word = data[i];
     add_edge(word.get("id"), word.get("head"));
-    id_to_word.set(word.get("id"), word.get("head"));
+    id_to_word.set(word.get("id"), word.get("form"));
   }
 
   console.log("Has Cycles:");
