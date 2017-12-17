@@ -21,9 +21,13 @@ function is_depend_cycles(c) {
       console.log(cycle);
       var word_form = [];
       for(var j = 0; j < cycle.length; j++) {
-        word_form.push(id_to_word[cycle[j]]);
+        word_form.push(id_to_word.get(cycle[j]));
       }
-      console.log("-->" + String(word_form) + "-->");
+      var output = "";
+      for(var j = 0; j < word_form.length; j++) {
+        output += String(word_form[j]) + "-->"
+      }
+      console.log(output);
     }
   }
   return is_cyclic();
