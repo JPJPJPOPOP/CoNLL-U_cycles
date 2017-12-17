@@ -4,19 +4,23 @@ is_depend_cycles takes in a parameter c which is an Array of Maps .
 
 Each map in c should have three elements, head (maps to an integer), id (maps to an integer), form (maps to a string).
 
+
+tree is a dictionary of dictionaries.
 */
 
-function is_depend_cycles(c) {
+function is_depend_cycles(tree) {
   var g = new Map();
   var vertices;
-  var data = c;
-  vertices = data.length + 1;
+  var data = tree;
+  vertices = Object.keys(data).length + 1;
   var id_to_word = new Map();
 
-  for (var i = 0; i < vertices-1; i++) {
-    var word = data[i];
-    add_edge(word.get("id"), word.get("head"));
-    id_to_word.set(word.get("id"), word.get("form"));
+  for (var k in data) {
+    if (data.hasOwnProperty(k)) {           
+      var word = data[k];
+      add_edge(word["id"], word["head"]);
+      id_to_word.set(word["id"], word["form"]);
+    }
   }
 
   console.log("Has Cycles:");
@@ -111,6 +115,11 @@ function is_depend_cycles(c) {
       }
     }
     return true;
+  }
+
+  function parseId(id) {
+    var nfid = id.substr(2);
+    return int(nfid);
   }
 
   function is_cyclic() {
