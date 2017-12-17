@@ -1,4 +1,3 @@
-
 function is_depend_cycles(c) {
   var g = new Map();
   var vertices;
