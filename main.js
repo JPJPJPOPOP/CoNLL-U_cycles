@@ -1,29 +1,56 @@
 // Do data parsing here
-def parse(text):
-    lines = []
-    for line in text:
-        if line:
-            lines.append(line)
-    words = []
-    for l in lines:
-        row = str(l).split(" ")
-        while "" in row:
-            row.remove("")
-        word = {"id": int(row[0]), "head": int(row[6]), "form": row[1]}
-        words.append(word)
-return words
-
-data = parse(stuff);
-datalength = length of data;
+function parse(text) {
+  var reader = new FileReader();
+  words = []
+  reader.onload = function(progressEvent){
+    var lines = this.result.split('\n');
+    for(var line = 0; line < lines.length; line++){
+      var row = String(lines[line]).split(" ");
+      var word = new Map();
+      word.set("id", int(row[0]));
+      word.set("head", int(row[6]));
+      word.set("form", row[1]);
+      words.push(word);
+    }
+  };
+  reader.readAsText(file);
+  return words;
+};
 
 var g = new Map(); // define graph
 var vertices;
-id_to_word = []
+var client = new XMLHttpRequest();
+client.open('GET', '/test.txt');
+client.onreadystatechange = function() {
+  var response = client.responseText;
 
-for(var i = 0; i < datalength; i++) {
-  g.addedge(word['id'], word['head'])
-  id_to_word
+  var data = parse(response);
+  vertices = data.length + 1;
+  var id_to_word = new Map();
+
+  for(var i = 0; i < vertices; i++) {
+    var word = data[i];
+    add_edge(word.get("id"), word.get("head"));
+    id_to_word.set(word.get("id"), word.get("head"));
+  }
+
+  console.log("Has Cycles:");
+  console.log(is_cyclic());
+  if(is_cyclic()) {
+    console.log("Cycle List:");
+    var c_list = cycle_list();
+    for(var i = 0; i < c_list.length; i++) {
+      var cycle = c_list[i];
+      console.log(cycle);
+      var word_form = [];
+      for(var j = 0; j < cycle.length; j++){
+        word_form.push(id_to_word[cycle[j]]);
+      }
+      console.log("-->" + String(word_form) + "-->");
+    }
+  }
 }
+client.send();
 
 function add_edge(u,v) {
   if(g.get(u) === undefined) {
@@ -47,7 +74,7 @@ function _is_cyclic_util(start_vertex) {
     return [visited];
   }
   return [];
-}
+};
 
 function normalize_cycle(a) {
   var b = a;
@@ -61,7 +88,7 @@ function normalize_cycle(a) {
     c[i - loc] = a[i];
   }
   return c;
-}
+};
 
 function cycle_list() {
   var cycles = [];
@@ -78,7 +105,8 @@ function cycle_list() {
     }
   }
   return cycles;
-}
+};
+
 function is_cyclic() {
   return cycle_list().length > 0;
 };
