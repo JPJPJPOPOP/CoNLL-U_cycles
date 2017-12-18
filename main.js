@@ -59,7 +59,7 @@ function is_depend_cycles(tree) {
     };
 
     function normalize_cycle(a) {
-        var b = a;
+        var b = a.slice().sort();
         b.sort();
         var loc = a.indexOf(b[0]);
         var c = [];
@@ -67,7 +67,11 @@ function is_depend_cycles(tree) {
             c.push(0);
         }
         for (var i = 0; i < a.length; i++) {
-            c[i - loc] = a[i];
+            var index = i - loc;
+            if (index < 0) {
+                index = a.length + i - loc;
+            }
+            c[index] = a[i];
         }
         return c;
     };
